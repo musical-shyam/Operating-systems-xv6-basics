@@ -1,0 +1,72 @@
+How we did the Project:
+(1) We all met outside the class hours and worked on all the system calls and questions together
+(2) While working on a system call, for each step of implementation, we gave 3-4 min to figure out ourselves.
+(3) then whoever got how to do it, would explain and help others to complete.
+(4) As we met near The TA, and during the TA's office hours, if we had big problems we sought out TA for guidance
+
+Status of Implementation:
+ We have implemented all the required system calls for the project, unfortunately, we didnt have time to work on 
+ the extra points.
+
+How the code works:
+do make qemu-nox and then try out the system calls.
+
+Log of test cases: all the cases work
+
+(1) shutdown 
+Booting from Hard Disk..xv6...
+cpu0: starting 0
+sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
+init: starting sh
+$ shutdown
+BYE~
+skannan@remote02:~/cs350/Project 1/xv6_system_calls/base$ 
+
+(2) shutdown2
+$ shutdown2 Hello
+Hello 
+skannan@remote02:~/cs350/Project 1/xv6_system_calls/base$ 
+
+(3) exit2
+$ exit2 1
+1 
+$ exit2 2
+2 
+$ exit2 5
+5 
+
+(4) mkdir2
+$ mkdir2 test1 test2
+$ ls
+.              1 1 512
+..             1 1 512
+README         2 2 2290
+cat            2 3 15332
+echo           2 4 14224
+forktest       2 5 8840
+grep           2 6 18136
+init           2 7 14848
+kill           2 8 14332
+ln             2 9 14208
+ls             2 10 16788
+mkdir          2 11 14336
+rm             2 12 14316
+sh             2 13 27344
+stressfs       2 14 15068
+usertests      2 15 61928
+wc             2 16 15696
+zombie         2 17 13912
+shutdown       2 18 14076
+shutdown2      2 19 14648
+uptime2        2 20 14656
+mkdir2         2 21 14140
+exit2          2 22 14316
+console        3 23 0
+test1          1 24 32
+test2          1 25 32
+
+(5) uptime2
+$ uptime2 1
+Current Uptime in ticks: 18854$ uptime2 2
+Current Uptime in seconds: 193$ uptime2 3
+Current Uptime in minutes: 3$ 

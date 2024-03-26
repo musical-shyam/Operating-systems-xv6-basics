@@ -1,0 +1,2 @@
+1) I changed the main.c program and added the cprintf function in the mpmain.
+2) It is in kernal space because when we start the xv6 by making qemu we find the the text printed while starting. Also cprintf is command that only works in the kernal space

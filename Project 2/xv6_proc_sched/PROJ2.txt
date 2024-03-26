@@ -1,0 +1,218 @@
+Shyam Kannan
+B01037711
+Group Members: Jason Yang, Jonibek Radjabov, Shyam Kannan, Jerry Lai
+
+How we did the Project:
+We successfully completed the fork() race condition together by basically having the parent process 
+voluntarily yield, so that the child process can run first. As for the stride scheduling, Jason, Jerry 
+and Shyam worked to complete this while Jonibek completed the questions, which were later verified by 
+the rest of the team. Stride scheduling should work as intended, with the respective system calls being 
+properly made.
+
+Part 1: fork_winner() race condition
+Status: COMPLETED
+Members Contributed: JY, JR, SK, JL
+
+Part 2: stride scheduling
+Status: COMPLETED
+Members Contributed: JY, SK, JL
+
+Question 1:
+Members Contributed: JR
+
+Question 2:
+Members: Contributed: JR
+
+Question 3:
+Members Contributed: JR
+
+Status of Implementation:
+We have implemented all the required implementations(Race condition after fork() and stride scheduling). 
+And both of them are working as intended.
+
+How the code works:
+do make qemu-nox and then try out the system calls, as demostrated in the test logs below.
+
+Log of Test Cases: all cases work properly
+
+(1) Fork with parent running first
+Booting from Hard Disk..xv6...
+cpu0: starting 0
+sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
+init: starting sh
+$ fork_winner 0
+exec: fail
+exec fork_winner failed
+$ fork_rc_test 0
+
+Setting parent as the fork winner ...
+
+Trial 0:  parent!  child! 
+Trial 1:  parent!  child! 
+Trial 2:  parent!  child! 
+Trial 3:  parent child! ! 
+Trial 4:  parent!  child! 
+Trial 5:  parent!  child! 
+Trial 6:  parent!  child! 
+Trial 7:  parent!  child! 
+Trial 8:  parent!  child! 
+Trial 9:  parent!  child! 
+Trial 10:  parent!  child! 
+Trial 11:  parent!  child! 
+Trial 12:  parent!  child! 
+Trial 13:  parent!  child! 
+Trial 14:  p child! arent! 
+Trial 15:  parent!  child! 
+Trial 16:  parent!  child! 
+Trial 17:  parent!  child! 
+Trial 18:  parent!  child! 
+Trial 19:  parent!  child! 
+Trial 20:  parent!  child! 
+Trial 21:  parent!  child! 
+Trial 22:  parent!  child! 
+Trial 23:  parent!  child! 
+Trial 24:  parent!  child! 
+Trial 25:  parent!  child! 
+Trial 26:  parent!  child! 
+Trial 27:  parent!  child! 
+Trial 28:  parent!  child! 
+Trial 29:  parent!  child! 
+Trial 30:  parent!  child! 
+Trial 31:  parent!  child! 
+Trial 32:  parent!  child! 
+Trial 33:  parent!  child! 
+Trial 34:  parent!  child! 
+Trial 35:  parent!  child! 
+Trial 36:  parent!  child! 
+Trial 37:  parent!  child! 
+Trial 38:  parent child! ! 
+Trial 39:  parent!  child! 
+Trial 40:  parent!  child! 
+Trial 41:  parent!  child! 
+Trial 42:  parent!  child! 
+Trial 43:  parent!  child! 
+Trial 44:  parent!  child! 
+Trial 45:  parent!  child! 
+Trial 46:  parent!  child! 
+Trial 47:  parent!  child! 
+Trial 48:  parent!  child! 
+Trial 49:  parent!  child! 
+
+(2) fork with child running first
+$ fork_rc_test 1
+
+Setting child as the fork winner ...
+
+Trial 0:  child!  parent! 
+Trial 1:  child!  parent! 
+Trial 2:  child!  parent! 
+Trial 3:  child!  parent! 
+Trial 4:  child!  parent! 
+Trial 5:  child!  parent! 
+Trial 6:  child!  parent! 
+Trial 7:  child!  parent! 
+Trial 8:  child!  parent! 
+Trial 9:  child!  parent! 
+Trial 10:  child!  parent! 
+Trial 11:  child!  parent! 
+Trial 12:  child!  parent! 
+Trial 13:  child!  parent! 
+Trial 14:  child!  parent! 
+Trial 15:  child!  parent! 
+Trial 16:  child!  parent! 
+Trial 17:  child!  parent! 
+Trial 18:  child!  parent! 
+Trial 19:  child!  parent! 
+Trial 20:  child!  parent! 
+Trial 21:  child!  parent! 
+Trial 22:  child!  parent! 
+Trial 23:  child!  parent! 
+Trial 24:  child!  parent! 
+Trial 25:  child!  parent! 
+Trial 26:  child!  parent! 
+Trial 27:  child!  parent! 
+Trial 28:  child!  parent! 
+Trial 29:  child!  parent! 
+Trial 30:  child!  parent! 
+Trial 31:  child!  parent! 
+Trial 32:  chil parent! d! 
+Trial 33:  child!  parent! 
+Trial 34:  child!  parent! 
+Trial 35:  child!  parent! 
+Trial 36:  child!  parent! 
+Trial 37:  child!  parent! 
+Trial 38:  child!  parent! 
+Trial 39:  child!  parent! 
+Trial 40:  parent!  child! 
+Trial 41:  child!  parent! 
+Trial 42:  child!  parent! 
+Trial 43:  child!  parent! 
+Trial 44:  child!  parent! 
+Trial 45:  child!  parent! 
+Trial 46:  child!  parent! 
+Trial 47:  child!  parent! 
+Trial 48:  child!  parent! 
+Trial 49:  child!  parent!
+
+(3) Stride Scheduler Tests
+$ schdtest
+===== Test case 1: default (RR) scheduler, 3 child processes =====
+parent (pid 134) has 25 tickets.
+child (pid 135) has 25 tickets.
+child (pid 136) has 25 tickets.
+child (pid 137) has 25 tickets.
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 135 - 136 - 137
+134 - 135 - 136 - 137 - 134 - 135 - 136 - 137 - 134 - 136 - 137 - 134 - 137 - 137 - 137 - 137 - 
+
+===== Test case 2: stride scheduler, 2 child processes, no ticket trasfer =====
+parent (pid 134) has 33 tickets.
+child (pid 138) has 33 tickets.
+child (pid 139) has 33 tickets.
+134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138
+139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134
+138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139
+134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138
+139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134
+138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139 - 134 - 138 - 139
+134 - 138 - 139 - 134 - 138 - 139 - 134 - 139 - 134 - 134 - 134 - 
+
+===== Test case 3: stride scheduler, testing return values of transfer_tickets() ... 
+parent (pid: 134) tranferred 20 tickets to child (pid: 140), transfer_tickets() returned 30. 
+parent (pid: 134) now has 30 tickets.
+parent (pid: 134) tranferred -2 tickets to child (pid: 140), transfer_tickets() returned -1. 
+parent (pid: 134) now has 30 tickets.
+parent (pid: 134) tranferred 30 tickets to child (pid: 140), transfer_tickets() returned -2. 
+parent (pid: 134) now has 30 tickets.
+parent (pid: 134) tranferred 20 tickets to child (pid: 9999), transfer_tickets() returned -3. 
+parent (pid: 134) now has 30 tickets.
+parent (pid 134) has 30 tickets.
+child (pid 140) has 70 tickets.
+
+
+===== Test case 4: stride scheduler, 1 child, with ticket trasfer at the beginning ... =====
+parent (pid: 134) transferred 25 tickets to child (pid: 141)
+parent (pid 134) has 25 tickets.
+child (pid 141) has 75 tickets.
+134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141
+134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141
+134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 141 - 141 - 141 - 134 - 134 - 134 - 134
+134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134
+134 - 134 - 134 - 134 - 134 - 134 - 134 - 
+
+===== Test case 5: stride scheduler, 1 child, with ticket trasfer at the beginning ... =====
+parent (pid: 134) transferred 49 tickets to child (pid: 142)
+parent (pid 134) has 1 tickets.
+child (pid 142) has 99 tickets.
+134 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142
+142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142
+142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 142 - 134
+134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134
+134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134 - 134
+134 - 134 - 

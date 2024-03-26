@@ -1,0 +1,11 @@
+Steps
+1. I first stored the process Id of the child in variable pid
+2. I then checked using if, whether the fork was invoked succesfully
+3. I then printed the time stamp to indicate the start of the child process
+4. if the pid == 0, it is the child and i use execvp to run the command
+5. if the command does not exist, then print that command does not exist and exit the process
+6. if the pid > 1, it is the parent, i will use wait() to wait till the child process completes
+7. i will then print the parent id and child id using getpid() and getppid()
+8. once the child process is over will print the time stamp to indicate the end of the child process
+9. finally use timeval_subtract(&diff, &end, &start); to calculate the run time
+10. then print the run time of process.
