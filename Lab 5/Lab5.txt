@@ -1,0 +1,14 @@
+Shyam Kannan
+B01037711
+
+Note to TA:
+
+Completed both the tasks properly
+
+In Task 1: we mainly create a pipe, fork 2 childs from parent, and connect pipe's write side to child 1
+           and read side to child 2. We have to make sure that all the pipes are closed after use, then 
+           execute the command. Also we have to use waitpid for the parent to wait for all the child 
+           processes to complete.
+In Task 2: we have to mostly follow the same procedure as Task 1, but have to use 2 pipe. 1st pipe connects 
+           child 1 and child 2, and 2nd pipe connects child 2 and child 3. all pipes must be closed before 
+           executing the command, and the parent must wait until all the child processes complete.
