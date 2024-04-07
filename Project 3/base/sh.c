@@ -3,7 +3,6 @@
 #include "types.h"
 #include "user.h"
 #include "fcntl.h"
-
 // Parsed command representation
 #define EXEC  1
 #define REDIR 2
@@ -12,6 +11,13 @@
 #define BACK  5
 
 #define MAXARGS 10
+
+#define HISTORY_SIZE 10
+#define COMMAND_SIZE 100  // Assuming a command won't exceed 100 characters
+
+char history[HISTORY_SIZE][COMMAND_SIZE];
+int curr_index = 0;  // Index for the next command
+int tot_command = 0;  // Total number of commands entered
 
 struct cmd {
   int type;
@@ -49,6 +55,7 @@ struct backcmd {
   struct cmd *cmd;
 };
 
+
 int fork1(void);  // Fork but panics on failure.
 void panic(char*);
 struct cmd *parsecmd(char*);
@@ -57,12 +64,12 @@ struct cmd *parsecmd(char*);
 void
 runcmd(struct cmd *cmd)
 {
-  //int p[2];
-  //struct backcmd *bcmd;
+  int p[2];
+  struct backcmd *bcmd;
   struct execcmd *ecmd;
-  //struct listcmd *lcmd;
-  //struct pipecmd *pcmd;
-  //struct redircmd *rcmd;
+  struct listcmd *lcmd;
+  struct pipecmd *pcmd;
+  struct redircmd *rcmd;
   
   if(cmd == 0)
     exit();
@@ -76,23 +83,57 @@ runcmd(struct cmd *cmd)
     if(ecmd->argv[0] == 0)
       exit();
     exec(ecmd->argv[0], ecmd->argv);
-    printf(2, "exec %s failed\n", ecmd->argv[0]);
     break;
 
   case REDIR:
-    printf(2, "Redirection Not Implemented\n");
+    rcmd = (struct redircmd*)cmd;
+    int fd;
+    close (rcmd->fd); // close current stdout/stdin
+    fd = open(rcmd->file, rcmd->mode); // Open or create the file for writing
+      if (fd < 0) {
+          printf(2, "cannot open %s\n", rcmd->file);
+          exit();
+      }
+    runcmd(rcmd->cmd);
     break;
 
   case LIST:
-    printf(2, "List Not Implemented\n");
+    lcmd = (struct listcmd*)cmd;
+    if (fork1() == 0){
+          runcmd(lcmd->left);
+    }
+    wait();
+    runcmd(lcmd->right);
     break;
 
   case PIPE:
-    printf(2, "Pipe Not implemented\n");
+    pcmd = (struct pipecmd*)cmd;
+    if(pipe(p) < 0)
+      panic("pipe");
+    if(fork1() == 0){
+      close(1);
+      dup(p[1]);
+      close(p[0]);
+      close(p[1]);
+      runcmd(pcmd->left);
+    }
+    if(fork1() == 0){
+      close(0);
+      dup(p[0]);
+      close(p[0]);
+      close(p[1]);
+      runcmd(pcmd->right);
+    }
+    close(p[0]);
+    close(p[1]);
+    wait();
+    wait();
     break;
 
   case BACK:
-    printf(2, "Backgrounding not implemented\n");
+    bcmd = (struct backcmd*)cmd;
+    if(fork1() == 0)
+      runcmd(bcmd->cmd);
     break;
   }
   exit();
@@ -132,9 +173,36 @@ main(void)
         printf(2, "cannot cd %s\n", buf+3);
       continue;
     }
-    if(fork1() == 0)
-      runcmd(parsecmd(buf));
-    wait();
+    if (!(buf[0] == 'h' && buf[1] == 'i' && buf[2] == 's' && buf[3] == 't' && buf[4] == ' ' ) && buf[0] != '\n') {
+        strcpy(history[curr_index], buf);
+        curr_index = (curr_index + 1) % HISTORY_SIZE;
+        if (tot_command < HISTORY_SIZE) tot_command++;
+        
+    }
+    if (buf[0] == 'h' && buf[1] == 'i' && buf[2] == 's' && buf[3] == 't' && buf[4] == ' ' ) {
+      if (buf[5] == 'p' && buf[6] == 'r' && buf[7] == 'i' && buf[8] == 'n' && buf[9] == 't') {
+        for (int i = 0; i < tot_command; i++) {
+            int idx = (curr_index - i - 1 + HISTORY_SIZE) % HISTORY_SIZE;
+            printf(2, "Previous command %d: %s", i + 1, history[idx]);
+        }
+      } 
+      else {
+        int cmd_number = atoi(buf + 5); 
+        if (cmd_number > 0 && cmd_number <= tot_command) {
+          int idx = (curr_index - cmd_number + HISTORY_SIZE) % HISTORY_SIZE; 
+          if(fork1() == 0){
+            runcmd(parsecmd(history[idx]));
+            exit();
+          }
+          wait();
+        }
+      }
+    } 
+    else{
+      if(fork1() == 0)
+        runcmd(parsecmd(buf));
+      wait();
+    }
   }
   exit();
 }
