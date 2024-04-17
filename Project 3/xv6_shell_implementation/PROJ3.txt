@@ -1,0 +1,41 @@
+Shyam Kannan
+B01037711
+Group Members: Jason Yang, Jonibek Radjabov, Shyam Kannan, Jerry Lai
+
+Project Summary: Our team worked together to implement the shell commands as specified by the project 3 documentation. 
+We split up some of the first initial shell commands and some of us worked together to complete history and backgrounding.
+All commands should work as specified, including the handling of zombie processes.
+
+
+Part 1: Multiple commands in the same line
+Status: COMPLETED
+Members Contributed: JR
+
+
+Part 2: Command pipeline
+Status: COMPLETED
+Members Contributed: JL
+
+
+Part 3: I/O redirection
+Status: COMPLETED
+Members Contributed: JR
+
+
+Part 4: Command Backgrouund execution
+Status: COMPLETED with Extra credits
+Members Contributed: JY, SK
+
+Part 5: Command history
+Status: COMPLETED
+Members Contributed: JY, SK
+
+
+
+Status of Implementation:
+We have implemented all the required implementations. we have also implemented the extra credit, which is attached in 
+Jason's submitted filled
+
+How the code works:
+do make qemu-nox and then try out the system calls, as demostrated in the test logs.
+

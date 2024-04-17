@@ -1,0 +1,9 @@
+Shyam Kannan
+B01037711
+
+Note to TA:
+all the tasks completed and all of them working as intended.
+steps to execute:
+make  
+./task1(2 or 3) for the first part of the assignment
+./signal for catching ctrl + C part.

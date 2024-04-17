@@ -1,0 +1,50 @@
+Shyam Kannan
+B01037711
+
+Note to TA:
+all the tasks completed and all of them working as intended.
+
+steps to execute:
+make clean
+make
+./pt-task 10 1 2 3 
+// can change the array values and also change the number of the array values
+
+Test Cases: 
+skannan@remote07:~/cs350/Lab 7$ ./pt-task 10 1 2 3
+1: In thread 1 (TID=139804259235520): 1 2 3 
+3: In thread 1 (TID=139804259235520): 1 2 3 
+4: In thread 1 (TID=139804259235520): 1 2 3 
+2: In thread 2 (TID=139804250842816): 3 2 1 
+5: In thread 2 (TID=139804250842816): 3 2 1 
+6: In thread 2 (TID=139804250842816): 3 2 1 
+7: In thread 2 (TID=139804250842816): 3 2 1 
+8: In thread 2 (TID=139804250842816): 3 2 1 
+9: In thread 2 (TID=139804250842816): 3 2 1 
+10: In thread 1 (TID=139804259235520): 1 2 3 
+In main thread: T1 printed 4 times. T2 printed 6 times.
+
+skannan@remote07:~/cs350/Lab 7$ ./pt-task 10 1 2 3
+1: In thread 1 (TID=139848562353856): 1 2 3 
+3: In thread 1 (TID=139848562353856): 1 2 3 
+4: In thread 1 (TID=139848562353856): 1 2 3 
+5: In thread 1 (TID=139848562353856): 1 2 3 
+6: In thread 1 (TID=139848562353856): 1 2 3 
+7: In thread 1 (TID=139848562353856): 1 2 3 
+8: In thread 1 (TID=139848562353856): 1 2 3 
+9: In thread 1 (TID=139848562353856): 1 2 3 
+10: In thread 1 (TID=139848562353856): 1 2 3 
+2: In thread 2 (TID=139848553961152): 3 2 1 
+In main thread: T1 printed 9 times. T2 printed 1 times.
+
+skannan@remote07:~/cs350/Lab 7$ ./pt-task 9 1 2 6 7 
+1: In thread 1 (TID=139891500193472): 1 2 6 7 
+3: In thread 1 (TID=139891500193472): 1 2 6 7 
+4: In thread 1 (TID=139891500193472): 1 2 6 7 
+5: In thread 1 (TID=139891500193472): 1 2 6 7 
+6: In thread 1 (TID=139891500193472): 1 2 6 7 
+7: In thread 1 (TID=139891500193472): 1 2 6 7 
+8: In thread 1 (TID=139891500193472): 1 2 6 7 
+9: In thread 1 (TID=139891500193472): 1 2 6 7 
+2: In thread 2 (TID=139891491800768): 7 6 2 1 
+In main thread: T1 printed 8 times. T2 printed 1 times.
