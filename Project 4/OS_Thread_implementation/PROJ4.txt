@@ -1,0 +1,125 @@
+Shyam Kannan
+B01037711
+
+Status of Implementation: Complete
+
+Steps to execute: 
+1. make clean
+2. make
+3. ./matmul <the number of threads>
+4. By default the data taken is the largest matrix
+can check with other sized matrices by uncommenting the #define<size>, present in matmul.h 
+dont forget to comment out the other sizes and also make clean after changing the sizes and repeat the process
+
+Log of Test cases: 
+
+Big matrices
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 1
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with a single thread ---
+Correct! Your matrices multiplied properly
+This operation took 1.736512 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 2
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 2 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.900278 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 10
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 10 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.439726 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 100
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 100 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.230999 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 500
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 500 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.250306 seconds
+
+Medium Matrices
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 1
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with a single thread ---
+Correct! Your matrices multiplied properly
+This operation took 0.000008 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 2
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 2 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000094 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 10
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 10 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000313 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 15
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 15 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000388 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 100
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 100 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000337 seconds
+
+Small Matrices
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 1
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with a single thread ---
+Correct! Your matrices multiplied properly
+This operation took 0.000003 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 2
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 2 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000127 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 4
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 4 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000134 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 10
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 10 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000143 seconds
+
+skannan@remote01:~/cs350/Project 4/base$ ./matmul 100
+--- Reading in Matrices ---
+--- Matrices Successfully Read, Multiplying Now ---
+--- Multiplying with 100 threads ---
+Correct! Your matrices multiplied properly
+This operation took 0.000134 seconds
